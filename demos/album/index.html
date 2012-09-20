@@ -1,0 +1,88 @@
+<!doctype html>
+<html>
+<head>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="../../turn.min.js"></script>
+
+<style type="text/css">
+body{
+	background:#ccc;
+	maring:0;
+	padding:0;
+}
+#album{
+	width:640px;
+	height:480px;
+	margin:50px auto;
+}
+#album .turn-page{
+	background-color:#ccc;
+	background-size:100% 100%;
+}
+#goPage{
+	width:120px;
+	height:30px;
+	line-height:30px;
+	margin:0 auto;
+}
+p{
+	color:red;
+	font-size:12px;
+	text-align:center;
+}
+</style>
+</head>
+<body>
+
+<div id="album">
+	<div class="cover"><img src="pages/page1.jpg"/></div>
+	<div class="page"><img src="pages/page2.jpg"/></div>
+	<div class="page"><img src="pages/page3.jpg"/></div>
+    <div class="page"><img src="pages/page4.jpg"/></div>
+    <div class="page"><img src="pages/page5.jpg"/></div>
+    <div class="page"><img src="pages/page6.jpg"/></div>
+    <div class="page"><img src="pages/page7.jpg"/></div>
+    <div class="back"><img src="pages/page8.jpg"/></div>
+</div>
+<div id="goPage"><input type="button" id="prevPage" value="上一页" /><input type="button" id="nextPage" value="下一页" /></div>
+<p>也可使用左右键或者点击书角翻页</p>
+
+
+<script type="text/javascript">
+
+	$(window).ready(function() {
+		//if(header||footer){alert(111)}
+		$('#album').turn({
+							display: 'double',
+							acceleration: true,
+							gradients: !$.isTouch,
+							elevation:50,
+							when: {
+								turned: function(e, page) {
+									/*console.log('Current view: ', $(this).turn('view'));*/
+								}
+							}
+						});
+
+		$('#nextPage').click(function(){
+			$('#album').turn('next')
+		})
+		$('#prevPage').click(function(){
+			$('#album').turn('previous')
+		})
+	});
+	
+	
+	$(window).bind('keydown', function(e){
+		
+		if (e.keyCode==37)
+			$('#album').turn('previous');
+		else if (e.keyCode==39)
+			$('#album').turn('next');
+			
+	});
+
+</script>
+
+</body>
+</html>
